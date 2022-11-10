@@ -1,16 +1,17 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { CurrentWeatherComponent } from './current-weather/current-weather.component';
+import { WeatherService } from './weather.service';
+import { WeatherServiceFake } from './weather.service.fake';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
+      imports: [RouterTestingModule, HttpClientTestingModule],
+      declarations: [AppComponent, CurrentWeatherComponent],
+      providers: [{ provide: WeatherService, useClass: WeatherServiceFake }],
     }).compileComponents();
   });
 
@@ -30,6 +31,8 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('meteo app is running!');
+    expect(compiled.querySelector('h1')?.textContent).toContain(
+      'Votre meteo du jour'
+    );
   });
 });
