@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { WeatherService } from '../weather.service';
-import { WeatherServiceFake } from '../weather.service.fake';
+import { WeatherService } from '../weather/weather.service';
+import { WeatherServiceFake } from '../weather/weather.service.fake';
 
 import { CurrentWeatherComponent } from './current-weather.component';
 

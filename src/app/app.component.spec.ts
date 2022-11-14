@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { CurrentWeatherComponent } from './current-weather/current-weather.component';
 import { WeatherService } from './weather.service';
-import { WeatherServiceFake } from './weather.service.fake';
+import { WeatherServiceFake } from './weather/weather.service.fake';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
