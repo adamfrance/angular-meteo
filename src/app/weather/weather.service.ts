@@ -8,21 +8,21 @@ import { Coordinates } from '../iCoordinates';
 
 interface ICurrentWeatherData {
   weather: [{
-    description: string,
-    icon: string
-  }],
-  main: {
-    temp: number
-  },
-  sys: {
-    country: string
-  },
-  dt: number,
-  name: string
+      description: string,
+      icon: string
+    }],
+    main: {
+      temp: number
+    },
+    sys: {
+      country: string
+    },
+    dt: number,
+    name: string
 }
 
 export interface IWeatherService {
-  getCurrentWeather(city: string, country: string) : Observable<IWeather>
+  getCurrentWeather(city: string, country: string): Observable < IWeather >
 }
 
 
@@ -34,8 +34,8 @@ export class WeatherService {
 
   getCurrentWeather(
     search: string | number,
-    country?: string
-  ): Observable<IWeather> {
+    country ? : string
+  ): Observable < IWeather > {
     let uriParams = new HttpParams();
 
     if (typeof search === 'string') {
@@ -46,13 +46,12 @@ export class WeatherService {
     return this.getCurrentWeatherHelper(uriParams);
   }
 
-  private getCurrentWeatherHelper(uriParams: HttpParams): Observable<IWeather> {
-    uriParams = uriParams.set('appId', environment.appId);
+  private getCurrentWeatherHelper(uriParams: HttpParams): Observable < IWeather > {
+    //uriParams = uriParams.set('appId', environment.appId);
 
     return this.httpClient
-      .get<ICurrentWeatherData>(
-        `${environment.baseUrl}api.openweathermap.org/data/2.5/weather?`,
-        { params: uriParams }
+      .get < ICurrentWeatherData > (
+        `${environment.baseUrl}api.openweathermap.org/data/2.5/weather?` + `${uriParams}&appid=${environment.appId}`
       )
       .pipe(map((data) => this.transformToICurrentWeather(data)));
   }
@@ -71,7 +70,7 @@ export class WeatherService {
     return (kelvin * 9) / 5 - 459.67;
   }
 
-  getCurrentWeatherByCoords(coords: Coordinates): Observable<IWeather> {
+  getCurrentWeatherByCoords(coords: Coordinates): Observable < IWeather > {
     const uriParams = new HttpParams()
       .set('lat', coords.latitude.toString())
       .set('lon', coords.longitude.toString());

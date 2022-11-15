@@ -4,31 +4,24 @@ import { WeatherService } from '../weather/weather.service';
 
 @Component({
   selector: 'app-current-weather',
-  template: `
-  <div>
-  <div>
-    <span>{{current.city}}, {{current.country}}</span>
-    <span>{{current.date | date:'fullDate'}}</span>
-  </div>
-  <div>
-    <img [src]='current.image'>
-    <span>{{current.temperature | number:'1.0-0'}}˚F</span>
-  </div>
-  <div>
-    {{current.description}}
-  </div>
-</div>
-  `,
+  templateUrl: 'current-weather.component.html',
   styles: []
 })
-export class CurrentWeatherComponent  {
+export class CurrentWeatherComponent {
 
-  current!: IWeather ;
+  current!: IWeather;
 
-  constructor(private weatherService: WeatherService) { }
+  constructor(private weatherService: WeatherService) {}
 
   ngOnInit() {
-    this.weatherService.getCurrentWeather('Paris', 'France').subscribe(data => this.current = data);
+    this.weatherService.getCurrentWeather('Paris', 'FR').subscribe(data => this.current = data);
+  }
+
+  getOrdinal(date: number) {
+    const n = new Date(date).getDate()
+    return n > 0 ?
+      ['th', 'st', 'nd', 'rd'][(n > 3 && n < 21) || n % 10 > 3 ? 0 : n % 10] :
+      ''
   }
 
 }
