@@ -12,13 +12,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {}
 
-  doSearch(searchValue) {
-    const userInput = searchValue.split(',').map((s) => s.trim());
-    this.weatherService
-      .getCurrentWeather(
-        userInput[0],
-        userInput.length > 1 ? userInput[1] : undefined
-      )
-      .subscribe((data) => console.log(data));
-  }
+  // doSearch(searchValue) {
+  //   const userInput = searchValue.split(',').map((s) => s.trim());
+//   this.weatherService
+//     .getCurrentWeather(
+//       userInput[0],
+//       userInput.length > 1 ? userInput[1] : undefined
+//     )
+//     .subscribe((data) => console.log(data));
+  // }
 }

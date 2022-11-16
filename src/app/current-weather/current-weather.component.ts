@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { IWeather } from '../iweather';
 import { WeatherService } from '../weather/weather.service';
 
@@ -7,21 +8,24 @@ import { WeatherService } from '../weather/weather.service';
   templateUrl: 'current-weather.component.html',
   styles: []
 })
-export class CurrentWeatherComponent {
+export class CurrentWeatherComponent implements OnInit {
 
   //Pour des interactions entre des composants : 
   // events
   // transmission vers des enfants
   // streaming de datas (recupere puis renvoie)
+  currentWeatherSubscription!: Subscription
 
-
-  current!: IWeather;
+  @Input() current!: IWeather;
 
   constructor(private weatherService: WeatherService) {}
 
   ngOnInit() {
-    this.weatherService.getCurrentWeather()
-      .subscribe(data => this.current = data);
+    this.currentWeatherSubscription = this.weatherService.currentWeather$.subscribe(data => this.current = data)
+  }
+
+  ngOnDestroy(): void {
+    this.currentWeatherSubscription.unsubscribe()
   }
 
   getOrdinal(date: number) {
